@@ -83,11 +83,11 @@ async def run_test(preset_exp_dir, age, age_range, gender, race, ip2p_prompt):
     # run ip2p
     print("ran ip2p")
 
-if __name__ == '__main__':
-    preset_exp_dir = "experiments/test-exp-male"
-    age = 23
-    age_range = ["30", "40", "50", "60", "70"]
-    gender = "M"
-    race = "White"
-    ip2p_prompt = []
-    await run_test(preset_exp_dir, age, age_range, gender, race, ip2p_prompt)
+
+preset_exp_dir = "experiments/test-exp-male"
+age = 23
+age_range = ["30", "40", "50", "60", "70"]
+gender = "M"
+race = "White"
+ip2p_prompt = []
+run_test(preset_exp_dir, age, age_range, gender, race, ip2p_prompt)
