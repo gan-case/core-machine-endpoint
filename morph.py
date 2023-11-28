@@ -119,14 +119,5 @@ async def morph_images(image_to_morph, f0_location):
         
 
 if __name__ == '__main__':
-	#parser = argparse.ArgumentParser(description='Process some integers.')
-	#parser.add_argument("path1")
-	#parser.add_argument("path2")
-	#parser.add_argument("age")
-
-	#args = parser.parse_args()
-	#run(args.path1, args.path2)
-
-
     loop = asyncio.get_event_loop()
     loop.run_until_complete(morph_images("experiments/8f749586-c9a3-4f0a-b7a5-dd8678353dda/raw_images/preprocessed_uploaded_image.jpeg","experiments/8f749586-c9a3-4f0a-b7a5-dd8678353dda/SAM_outputs/30/F0/"))
