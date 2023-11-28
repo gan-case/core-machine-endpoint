@@ -72,8 +72,8 @@ async def run_test(preset_exp_dir, age, age_range, gender, race, ip2p_prompt):
     print("morphed images: ", morphed_images)
 
     # run sam
-    path1 = exp_dir + "/../SAM_outputs"
-    path2 = exp_dir + "/../morphed_images/"
+    path1 = preset_exp_dir + "/SAM_outputs"
+    path2 = preset_exp_dir + "/morphed_images/"
     run(path1, path2, age_range)
     print("ran sam")
 
