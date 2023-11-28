@@ -90,4 +90,5 @@ age_range = ["30", "40", "50", "60", "70"]
 gender = "M"
 race = "White"
 ip2p_prompt = []
+print("Running test")
 run_test(preset_exp_dir, age, age_range, gender, race, ip2p_prompt)
