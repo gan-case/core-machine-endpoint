@@ -124,4 +124,4 @@ if __name__ == '__main__':
     loop.run_until_complete(morph_images("experiments/test-exp-male-ga-only/raw_images/preprocessed_uploaded_image.jpeg","experiments/test-exp-male-ga-only/SAM_outputs/40/F0/"))
     loop.run_until_complete(morph_images("experiments/test-exp-male-ga-only/raw_images/preprocessed_uploaded_image.jpeg","experiments/test-exp-male-ga-only/SAM_outputs/50/F0/"))
     loop.run_until_complete(morph_images("experiments/test-exp-male-ga-only/raw_images/preprocessed_uploaded_image.jpeg","experiments/test-exp-male-ga-only/SAM_outputs/60/F0/"))
-    loop.run_until_complete(morph_images("experiments/test-exp-male-ga-only/raw_images/preprocessed_uploaded_image.jpeg","experiments/test-exp-male-ga-only/SAM_outputs/70/F0/")
+    loop.run_until_complete(morph_images("experiments/test-exp-male-ga-only/raw_images/preprocessed_uploaded_image.jpeg","experiments/test-exp-male-ga-only/SAM_outputs/70/F0/"))
