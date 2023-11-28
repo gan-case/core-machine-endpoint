@@ -61,9 +61,9 @@ class SER_FIQ:
             self.device = mx.gpu(gpu)
 
         self.insightface = gluon.nn.SymbolBlock.imports(
-                                    "./insightface/model/insightface-symbol.json",
+                                    os.path.abspath("FaceImageQuality/insightface/model/insightface-symbol.json"),
                                     ['data'],
-                                    "./insightface/model/insightface-0000.params", 
+                                    os.path.abspath("FaceImageQuality/insightface/model/insightface-0000.params"), 
                                     ctx=self.device
                            )
 
@@ -76,7 +76,7 @@ class SER_FIQ:
         
         thrs = self.det_threshold if det==0 else [0.0,0.0,0.2]
         
-        self.detector = mtcnn_detector.MtcnnDetector(model_folder="./insightface/mtcnn-model/", 
+        self.detector = mtcnn_detector.MtcnnDetector(model_folder=os.path.abspath("FaceImageQuality/insightface/mtcnn-model/"), 
                                                     ctx=self.device, 
                                                     num_worker=1, 
                                                     accurate_landmark = True, 
