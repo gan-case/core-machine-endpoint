@@ -23,15 +23,6 @@ FACEMORPH_GENERATE_IMAGE = "/face/"
 
 EXPERIMENT_DIR = "experiments/"
 
-app = FastAPI()
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
 client = Client("https://99ashutosh-find-similar-image.hf.space/--replicas/m5fdd/")
 
 async def img_format(image, uuid):
