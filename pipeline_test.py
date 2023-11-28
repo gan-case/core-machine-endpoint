@@ -19,6 +19,12 @@ from inference_script import run
 # for testing only
 import asyncio
 
+
+FACEMORPH_API_URL = "https://api.facemorph.me/api"
+FACEMORPH_ENCODE_IMAGE = "/encodeimage/"
+FACEMORPH_GENERATE_IMAGE = "/face/"
+EXPERIMENT_DIR = "experiments/"
+
 async def img_format(image, uuid):
     data = {'usrimg': open(image, 'rb')}
     j = {'tryalign': True}
@@ -36,11 +42,7 @@ async def img_format(image, uuid):
             out_file.write(rawimg)
 
 async def run_test(preset_exp_dir, age, age_range, gender, race, ip2p_prompt):
-    FACEMORPH_API_URL = "https://api.facemorph.me/api"
-    FACEMORPH_ENCODE_IMAGE = "/encodeimage/"
-    FACEMORPH_GENERATE_IMAGE = "/face/"
-
-    EXPERIMENT_DIR = "experiments/"
+    
     client = Client("https://99ashutosh-find-similar-image.hf.space/--replicas/m5fdd/")
 
     # Initial Setup
