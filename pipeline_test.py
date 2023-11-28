@@ -12,10 +12,12 @@ import uvicorn
 import pandas as pd
 import shutil
 from morph import morph_images
-
 from gradio_client import Client
 from similarity_finder.morph_similar_images import get_morphed_images
 from inference_script import run
+
+# for testing only
+import asyncio
 
 async def img_format(image, uuid):
     data = {'usrimg': open(image, 'rb')}
@@ -91,4 +93,4 @@ gender = "M"
 race = "White"
 ip2p_prompt = []
 print("Running test")
-run_test(preset_exp_dir, age, age_range, gender, race, ip2p_prompt)
+asyncio.run(run_test(preset_exp_dir, age, age_range, gender, race, ip2p_prompt))
