@@ -7,7 +7,7 @@ import os
 
 MODEL_PATHS = {
     "ffhq_aging": {
-        "id": "1XyumF6_fdAxFmxpFcmPf-q84LU_22EMC",
+        "id": "14NsAD_OQ2xgK5_WEzTvPuJK1rhRpig9G",
         "name": "sam_ffhq_aging.pt",
         "path": "checkpoint"
     },
