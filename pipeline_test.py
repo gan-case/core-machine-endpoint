@@ -40,7 +40,7 @@ async def run_test(preset_exp_dir, age, age_range, gender, race, ip2p_prompt):
 
     EXPERIMENT_DIR = "experiments/"
     client = Client("https://99ashutosh-find-similar-image.hf.space/--replicas/m5fdd/")
-    
+
     # Initial Setup
     exp_dir = preset_exp_dir + "/raw_images"
     os.makedirs(exp_dir)
@@ -90,4 +90,4 @@ if __name__ == '__main__':
     gender = "M"
     race = "White"
     ip2p_prompt = []
-    run_test(preset_exp_dir, age, age_range, gender, race, ip2p_prompt)
+    await run_test(preset_exp_dir, age, age_range, gender, race, ip2p_prompt)
