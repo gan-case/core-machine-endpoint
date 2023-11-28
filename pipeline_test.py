@@ -79,9 +79,9 @@ async def run_test(preset_exp_dir, age, age_range, gender, race, ip2p_prompt):
 
     # run GA
     for i in age_range:
-        path1 = exp_dir + "/preprocessed_uploaded_image.jpeg"
-        path2 = exp_dir + f'/../SAM_outputs/{i}/F0/'
-        await morph_images(exp_dir + "/preprocessed_uploaded_image.jpeg", exp_dir + f'/../SAM_outputs/{i}/F0/')
+        path1 = preset_exp_dir + "/raw_images/preprocessed_uploaded_image.jpeg"
+        path2 = preset_exp_dir + f'/SAM_outputs/{i}/F0/'
+        await morph_images(path1, path2)
     print("ran GA")
 
     # run ip2p

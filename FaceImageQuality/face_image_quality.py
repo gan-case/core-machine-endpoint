@@ -22,6 +22,7 @@ import numpy as np
 import mxnet as mx
 from mxnet import gluon
 import cv2
+import os
 
 from sklearn.preprocessing import normalize
 from sklearn.metrics.pairwise import euclidean_distances
