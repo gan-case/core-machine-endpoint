@@ -120,4 +120,4 @@ async def morph_images(image_to_morph, f0_location):
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(morph_images("experiments/8f749586-c9a3-4f0a-b7a5-dd8678353dda/raw_images/preprocessed_uploaded_image.jpeg","experiments/8f749586-c9a3-4f0a-b7a5-dd8678353dda/SAM_outputs/30/F0/"))
+    loop.run_until_complete(morph_images("experiments/test-exp-male-ga-only/raw_images/preprocessed_uploaded_image.jpeg","experiments/test-exp-male-ga-only/SAM_outputs/30/F0/"))
