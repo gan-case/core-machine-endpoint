@@ -4,7 +4,6 @@ Script to prepare env before exec
 from multiprocessing import Process
 import tarfile
 import os
-from progress.spinner import MoonSpinner
 
 MODEL_PATHS = {
     "ffhq_aging": {
@@ -74,12 +73,10 @@ def download_all_files():
                 programs.append(proc)
                 proc.start()
 
-    # with MoonSpinner('Processing…') as bar:
     for proc in programs:
         proc.join()
-    # bar.next()
 
-    return "Environent Ready!"
+    print("Environent Ready!")
 
 
 download_all_files()

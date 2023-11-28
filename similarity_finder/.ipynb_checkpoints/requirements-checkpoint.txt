@@ -1,3 +1,0 @@
-annoy
-pandas
-numpy
