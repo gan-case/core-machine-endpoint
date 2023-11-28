@@ -61,7 +61,7 @@ def download_all_files():
     programs = []
     for key, details in MODEL_PATHS.items():
         if not os.path.exists(details["path"] + "/" + details["name"]):
-            os.makedirs(details["path"])
+            os.makedirs(details["path"], exist_ok=True)
             if (key == "CACD2000" or key == "embeddings"):
                 proc = Process(target=download_and_extract_files, args=(
                     details["id"], details["name"], details["path"],))
