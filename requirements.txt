@@ -1,0 +1,14 @@
+fastapi[all]
+progress
+websockets
+httpx
+pillow
+wget
+ninja
+gdown
+mxnet-cu117
+tqdm
+gradio_client
+annoy
+deepface
+numba
