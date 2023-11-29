@@ -81,11 +81,11 @@ async def run_test(preset_exp_dir, age, age_range, gender, race, ip2p_prompt):
     for i in age_range:
         path1 = preset_exp_dir + "/raw_images/preprocessed_uploaded_image.jpeg"
         path2 = preset_exp_dir + f'/SAM_outputs/{i}/F0/'
-        #await morph_images(path1, path2)
+        await morph_images(path1, path2)
     print("ran GA")
 
     # run ip2p
-    os.system("python edit_cli.py --steps 50 --resolution 300 --input imgs/example.jpg --output imgs/output.jpg --edit 'turn him into a cyborg'")
+    #os.system("python ip2p/edit_cli.py --steps 50 --resolution 300 --input imgs/example.jpg --output imgs/output.jpg --edit 'turn him into a cyborg'")
     print("ran ip2p")
 
 
