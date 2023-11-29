@@ -1,6 +1,6 @@
 ### `gradio-client`
 
-Copy file over from `gradio-fix/utils.py` to location of `utils.py` in container.
+Copy file from `gradio-fix/utils.py` to location of `utils.py` in container.
 
 ### `nccl`
 
