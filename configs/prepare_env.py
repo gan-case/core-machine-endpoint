@@ -9,7 +9,7 @@ MODEL_PATHS = {
     "ffhq_aging": {
         "id": "14NsAD_OQ2xgK5_WEzTvPuJK1rhRpig9G",
         "name": "sam_ffhq_aging.pt",
-        "path": "checkpoint"
+        "path": "checkpoints"
     },
     "CACD2000": {
         "id": "1JWTqMEiUZ2yNUJJl_5Ctq8SuskVocn51",
@@ -29,7 +29,7 @@ MODEL_PATHS = {
     "ip2p": {
         "id": "1C8Ka2qGrmERbNEECjljIJshdxitg6xBt",
         "name": "instruct-pix2pix-00-22000.ckpt",
-        "path": "ip2p"
+        "path": "ip2p/checkpoints"
     }
 }
 
