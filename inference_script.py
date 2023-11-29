@@ -26,7 +26,7 @@ from models.psp import pSp
 def run(output, datapath, target_age):
 	test_opts = Namespace()
 	test_opts.exp_dir=output
-	test_opts.checkpoint_path='checkpoint/sam_ffhq_aging.pt'
+	test_opts.checkpoint_path='checkpoints/sam_ffhq_aging.pt'
 	test_opts.data_path=datapath
 	test_opts.resize_outputs=False
 	test_opts.test_batch_size=4
