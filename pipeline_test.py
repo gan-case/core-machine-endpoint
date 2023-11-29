@@ -15,6 +15,7 @@ from morph import morph_images
 from gradio_client import Client
 from similarity_finder.morph_similar_images import get_morphed_images
 from inference_script import run
+from ip2p_diffusers import run_ip2p
 
 # for testing only
 import asyncio
@@ -81,11 +82,17 @@ async def run_test(preset_exp_dir, age, age_range, gender, race, ip2p_prompt):
     for i in age_range:
         path1 = preset_exp_dir + "/raw_images/preprocessed_uploaded_image.jpeg"
         path2 = preset_exp_dir + f'/SAM_outputs/{i}/F0/'
-        await morph_images(path1, path2)
+        #await morph_images(path1, path2)
     print("ran GA")
 
     # run ip2p
-    #os.system("python ip2p/edit_cli.py --steps 50 --resolution 300 --input imgs/example.jpg --output imgs/output.jpg --edit 'turn him into a cyborg'")
+    images = os.listdir(preset_exp_dir + '/SAM_outputs/40/F0/')
+    selected_image = preset_exp_dir + '/SAM_outputs/40/F0/' + images[0]
+    out_path = preset_exp_dir + '/ip2p_outputs'
+    os.makedirs(out_path)
+    for prompt in ip2p_prompt:
+        #os.system(f'python ip2p/edit_cli.py --steps 50 --resolution 300 --input {selected_image} --output {out_path}/{prompt}.jpg --edit {prompt}')
+        run_ip2p(prompt, selected_image)
     print("ran ip2p")
 
 

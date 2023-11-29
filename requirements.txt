@@ -12,3 +12,7 @@ gradio_client
 annoy
 deepface
 numba
+diffusers
+accelerate
+safetensors
+transformers
