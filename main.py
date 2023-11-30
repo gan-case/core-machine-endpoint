@@ -95,7 +95,6 @@ async def img_format(image, uuid):
         with open(uuid + "/preprocessed_uploaded_image.jpeg", 'wb') as out_file:
             out_file.write(rawimg)
 
-
 @app.get("/")
 async def get():
     #return FileResponse("index.html")
@@ -131,8 +130,6 @@ async def websocket_endpoint(websocket: WebSocket):
         await websocket.send_json({"status_code": 3, "exp_uuid": exp_uuid, "image": dataurl})
 
         # get similar faces
-        #global df
-        #t, similar_images = get_similar_images(df, exp_dir + "/preprocessed_uploaded_image.jpeg", 23, "M", "White")
         similar_images = client.predict(
             f'{exp_dir}/preprocessed_uploaded_image.jpeg',
             "23",
@@ -140,8 +137,6 @@ async def websocket_endpoint(websocket: WebSocket):
             "Black",        # str  in 'Race' Textbox component
             api_name="/predict"
         )
-        #similar_images.pop(0)
-        #similar_images.pop()
         similar_images = literal_eval(similar_images)
         similar_images = similar_images[1:6]
         similar_images_encoded = []
@@ -162,7 +157,6 @@ async def websocket_endpoint(websocket: WebSocket):
         path2 = exp_dir + "/../morphed_images/"
         age = ["30", "40", "50", "60", "70"]
         run(path1, path2, age)
-        #time.sleep(30)
         #sam_processed_images = os.listdir(exp_dir + "/../F0")
         #sam_processed_encoded = []
         #for image in sam_processed_images:
@@ -184,5 +178,5 @@ async def websocket_endpoint(websocket: WebSocket):
         
 
 if __name__ == '__main__':
-    download_all_files()
+    #download_all_files()
     uvicorn.run("main:app")

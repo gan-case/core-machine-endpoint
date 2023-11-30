@@ -15,4 +15,4 @@ numba
 diffusers
 accelerate
 safetensors
-transformers
+git+https://github.com/huggingface/transformers

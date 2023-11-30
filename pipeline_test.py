@@ -82,7 +82,7 @@ async def run_test(preset_exp_dir, age, age_range, gender, race, ip2p_prompt):
     for i in age_range:
         path1 = preset_exp_dir + "/raw_images/preprocessed_uploaded_image.jpeg"
         path2 = preset_exp_dir + f'/SAM_outputs/{i}/F0/'
-        #await morph_images(path1, path2)
+        await morph_images(path1, path2)
     print("ran GA")
 
     # run ip2p
@@ -98,9 +98,9 @@ async def run_test(preset_exp_dir, age, age_range, gender, race, ip2p_prompt):
 
 preset_exp_dir = "experiments/test-exp-male"
 age = 23
-age_range = ["30", "40", "50", "60", "70"]
+age_range = ["60", "70"]
 gender = "M"
 race = "White"
-ip2p_prompt = []
+ip2p_prompt = ["make him look like a cyborg"]
 print("Running test")
 asyncio.run(run_test(preset_exp_dir, age, age_range, gender, race, ip2p_prompt))
