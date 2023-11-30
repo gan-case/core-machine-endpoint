@@ -151,6 +151,7 @@ async def websocket_endpoint(websocket: WebSocket):
         morphed_images_location = exp_dir + "/morphed_images/"
         os.makedirs(morphed_images_location)
         morphed_images = await get_morphed_images(raw_images_location + "/preprocessed_uploaded_image.jpeg", similar_images, morphed_images_location)
+        print("morphed images: ", morphed_images)
 
         # run sam
         path1 = exp_dir + "/SAM_outputs"
