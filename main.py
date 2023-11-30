@@ -204,7 +204,7 @@ async def websocket_endpoint(websocket: WebSocket):
             base64_utf8_str = base64.b64encode(ip2p_processed_data).decode('utf-8')
             dataurl = f'data:image/jpeg;base64,{base64_utf8_str}'
             ip2p_outputs_encoded.append({"imagename": image, "encodedstring": dataurl})
-        await websocket.send_json({"status_code": 8, "exp_uuid": exp_uuid, "images": ip2p_outputs_encoded})
+        await websocket.send_json({"status_code": 8, "exp_uuid": exp_uuid, "images": ip2p_outputs_encoded[0]})
         
 
 if __name__ == '__main__':
