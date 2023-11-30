@@ -154,7 +154,7 @@ async def websocket_endpoint(websocket: WebSocket):
         print("morphed images: ", morphed_images)
         morphed_images_encoded = []
         for image in morphed_images:
-            morphed_image_data = open(image, "rb").read()
+            morphed_image_data = open(morphed_images_location + image, "rb").read()
             base64_utf8_str = base64.b64encode(morphed_image_data).decode('utf-8')
             dataurl = f'data:image/jpeg;base64,{base64_utf8_str}'
             morphed_images_encoded.append({"imagename": image, "encodedstring": dataurl})      

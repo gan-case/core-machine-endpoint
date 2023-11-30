@@ -37,6 +37,6 @@ async def get_morphed_images(original_image, images_to_morph_with, output_path):
             morph_response = await client.get(morph_url, params=morph_flags)
             with open(output_path + images_to_morph_with[file1],"wb") as morphed_file:
                 morphed_file.write(morph_response.content)
-                morphed_images.append(output_path + images_to_morph_with[file1])
+                morphed_images.append(images_to_morph_with[file1])
 
     return morphed_images
