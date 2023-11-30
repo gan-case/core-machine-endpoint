@@ -16,7 +16,6 @@ from subprocess import Popen
 import uvicorn
 import pandas as pd
 import shutil
-from morph import morph_images
 
 from gradio_client import Client
 from similarity_finder.morph_similar_images import get_morphed_images
