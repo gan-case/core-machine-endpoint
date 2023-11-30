@@ -177,12 +177,12 @@ async def websocket_endpoint(websocket: WebSocket):
 
         count = 0
         for generation in os.listdir(ga_outputs):
-            ga_outputs.append({"generation": generation, "images": []})
+            ga_outputs_encoded.append({"generation": generation, "images": []})
             for image in os.listdir(ga_outputs + "/" + generation):
                 ga_processed_data = open(ga_outputs + "/" + generation + "/" + image, "rb").read()
                 base64_utf8_str = base64.b64encode(ga_processed_data).decode('utf-8')
                 dataurl = f'data:image/jpeg;base64,{base64_utf8_str}'
-                ga_outputs[count]['images'].append({"imagename": image, "encodedstring": dataurl})
+                ga_outputs_encoded[count]['images'].append({"imagename": image, "encodedstring": dataurl})
             count += 1
         await websocket.send_json({"status_code": 7, "exp_uuid": exp_uuid, "images": ga_outputs})
 
