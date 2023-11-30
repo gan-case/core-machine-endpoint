@@ -98,7 +98,7 @@ async def run_test(preset_exp_dir, age, age_range, gender, race, ip2p_prompt):
 
 preset_exp_dir = "experiments/test-exp-male"
 age = 23
-age_range = ["60", "70"]
+age_range = ["70"]
 gender = "M"
 race = "White"
 ip2p_prompt = ["make him look like a cyborg"]
