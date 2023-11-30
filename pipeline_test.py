@@ -86,8 +86,8 @@ async def run_test(preset_exp_dir, age, age_range, gender, race, ip2p_prompt):
     print("ran GA")
 
     # run ip2p
-    images = os.listdir(preset_exp_dir + '/SAM_outputs/40/F0/')
-    selected_image = preset_exp_dir + '/SAM_outputs/40/F0/' + images[0]
+    images = os.listdir(preset_exp_dir + '/SAM_outputs/70/F0/')
+    selected_image = preset_exp_dir + '/SAM_outputs/70/F0/' + images[0]
     out_path = preset_exp_dir + '/ip2p_outputs'
     os.makedirs(out_path)
     for prompt in ip2p_prompt:
