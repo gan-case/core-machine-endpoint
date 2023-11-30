@@ -133,7 +133,7 @@ async def websocket_endpoint(websocket: WebSocket):
             f'{raw_images_location}/preprocessed_uploaded_image.jpeg',
             "23",
             "M",    # str  in 'Gender' Textbox component
-            "Male",        # str  in 'Race' Textbox component
+            "White",        # str  in 'Race' Textbox component
             api_name="/predict"
         )
         similar_images = literal_eval(similar_images)
