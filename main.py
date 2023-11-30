@@ -157,7 +157,7 @@ async def websocket_endpoint(websocket: WebSocket):
             morphed_image_data = open(image, "rb").read()
             base64_utf8_str = base64.b64encode(morphed_image_data).decode('utf-8')
             dataurl = f'data:image/jpeg;base64,{base64_utf8_str}'
-            sam_processed_encoded.append({"imagename": image, "encodedstring": dataurl})      
+            morphed_images_encoded.append({"imagename": image, "encodedstring": dataurl})      
         await websocket.send_json({"status_code": 5, "exp_uuid": exp_uuid, "images": morphed_images_encoded})
 
         # run sam
