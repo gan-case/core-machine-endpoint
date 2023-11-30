@@ -157,7 +157,7 @@ async def websocket_endpoint(websocket: WebSocket):
         path2 = exp_dir + "/morphed_images/"
         age = ["70"]
         run(path1, path2, age)
-        sam_output_location = exp_dir + "/SAM_outputs/F0/"
+        sam_output_location = exp_dir + "/SAM_outputs/70/F0/"
         sam_processed_images = os.listdir(sam_output_location)
         sam_processed_encoded = []
         for image in sam_processed_images:
