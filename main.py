@@ -184,7 +184,7 @@ async def websocket_endpoint(websocket: WebSocket):
                 dataurl = f'data:image/jpeg;base64,{base64_utf8_str}'
                 ga_outputs_encoded[count]['images'].append({"imagename": image, "encodedstring": dataurl})
             count += 1
-        await websocket.send_json({"status_code": 7, "exp_uuid": exp_uuid, "images": ga_outputs})
+        await websocket.send_json({"status_code": 7, "exp_uuid": exp_uuid, "images": ga_outputs_encoded})
 
         # Completed
 
