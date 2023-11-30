@@ -37,7 +37,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-client = Client("https://99ashutosh-find-similar-image.hf.space/--replicas/5lxf5/")
+client = Client("https://99ashutosh-find-similar-image.hf.space/--replicas/m5fdd/")
 
 test_html = """
 <!DOCTYPE html>
