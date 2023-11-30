@@ -152,6 +152,13 @@ async def websocket_endpoint(websocket: WebSocket):
         os.makedirs(morphed_images_location)
         morphed_images = await get_morphed_images(raw_images_location + "/preprocessed_uploaded_image.jpeg", similar_images, morphed_images_location)
         print("morphed images: ", morphed_images)
+        morphed_images_encoded = []
+        for image in morphed_images:
+            morphed_image_data = open(image, "rb").read()
+            base64_utf8_str = base64.b64encode(morphed_image_data).decode('utf-8')
+            dataurl = f'data:image/jpeg;base64,{base64_utf8_str}'
+            sam_processed_encoded.append({"imagename": image, "encodedstring": dataurl})      
+        await websocket.send_json({"status_code": 5, "exp_uuid": exp_uuid, "images": morphed_images_encoded})
 
         # run sam
         path1 = exp_dir + "/SAM_outputs"
@@ -188,6 +195,8 @@ async def websocket_endpoint(websocket: WebSocket):
         await websocket.send_json({"status_code": 7, "exp_uuid": exp_uuid, "images": ga_outputs_encoded})
 
         # Completed
+        data = await websocket.receive_text()
+        time.sleep(30)
         ip2p_outputs_paths = exp_dir + "/IP2P"
         ip2p_outputs_encoded = []
         for image in os.listdir(ip2p_outputs_paths):
