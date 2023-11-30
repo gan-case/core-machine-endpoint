@@ -60,7 +60,7 @@ def fitness_fun(path,sim_dict,ser_fiq):
     return(score)
 
 def morph_images(image_to_morph, f0_location):
-    ser_fiq = SER_FIQ(gpu=None)
+    ser_fiq = SER_FIQ(gpu=0)
     upload_url = "https://api.facemorph.me/api/encodeimage/"
     morph_url = "https://api.facemorph.me/api/morphframe/"
     current_gen = 0
