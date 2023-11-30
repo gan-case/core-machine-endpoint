@@ -154,18 +154,17 @@ async def websocket_endpoint(websocket: WebSocket):
 
         # run sam
         path1 = exp_dir + "/SAM_outputs"
-        path2 = exp_dir + "/morphed_images/"
         age = ["70"]
-        run(path1, path2, age)
-        sam_output_location = exp_dir + "/SAM_outputs/70/F0/"
-        sam_processed_images = os.listdir(sam_output_location)
-        sam_processed_encoded = []
-        for image in sam_processed_images:
-            sam_processed_data = open(sam_output_location + image, "rb").read()
-            base64_utf8_str = base64.b64encode(sam_processed_data).decode('utf-8')
-            dataurl = f'data:image/jpeg;base64,{base64_utf8_str}'
-            sam_processed_encoded.append({"imagename": image, "encodedstring": dataurl})      
-        await websocket.send_json({"status_code": 6, "exp_uuid": exp_uuid, "images": sam_processed_encoded})
+        run(path1, morphed_images_location, age)
+        #sam_output_location = exp_dir + "/SAM_outputs/70/F0/"
+        #sam_processed_images = os.listdir(sam_output_location)
+        #sam_processed_encoded = []
+        #for image in sam_processed_images:
+        #    sam_processed_data = open(sam_output_location + image, "rb").read()
+        #    base64_utf8_str = base64.b64encode(sam_processed_data).decode('utf-8')
+        #    dataurl = f'data:image/jpeg;base64,{base64_utf8_str}'
+        #    sam_processed_encoded.append({"imagename": image, "encodedstring": dataurl})      
+        #await websocket.send_json({"status_code": 6, "exp_uuid": exp_uuid, "images": sam_processed_encoded})
 
         time.sleep(20)
         # run GA
