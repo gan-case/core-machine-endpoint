@@ -106,16 +106,16 @@ async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
     while True:
         data = await websocket.receive_text()
-        # await websocket.send_text(f"Message text was: {data}")
 
         # Initial Setup
         exp_uuid = str(uuid.uuid4())
-        exp_dir = EXPERIMENT_DIR + exp_uuid + "/raw_images"
-        os.makedirs(exp_dir)
+        exp_dir = EXPERIMENT_DIR + "complete-example"  #exp_uuid
+        raw_images_location = exp_dir + "/raw_images"
+        os.makedirs(raw_images_location)
         await websocket.send_json({"status_code": 1, "exp_uuid": exp_uuid})
 
         # Process uploaded image
-        uploaded_image = open(exp_dir + "/../uploaded_image.jpeg", "wb")
+        uploaded_image = open(exp_dir + "/uploaded_image.jpeg", "wb")
         tmp = data
         data = data.replace('data:image/jpeg;base64,', '')
         uploaded_image.write(base64.b64decode(data))
@@ -123,18 +123,18 @@ async def websocket_endpoint(websocket: WebSocket):
         await websocket.send_json({"status_code": 2, "exp_uuid": exp_uuid, "image": tmp})
 
         # preprocess: facemorph
-        await img_format(exp_dir + "/../uploaded_image.jpeg", exp_dir)
-        preprocessed_file = open(exp_dir + "/preprocessed_uploaded_image.jpeg", "rb").read()
+        await img_format(exp_dir + "/uploaded_image.jpeg", raw_images_location)
+        preprocessed_file = open(raw_images_location + "/preprocessed_uploaded_image.jpeg", "rb").read()
         base64_utf8_str = base64.b64encode(preprocessed_file).decode('utf-8')
         dataurl = f'data:image/jpeg;base64,{base64_utf8_str}'
         await websocket.send_json({"status_code": 3, "exp_uuid": exp_uuid, "image": dataurl})
 
         # get similar faces
         similar_images = client.predict(
-            f'{exp_dir}/preprocessed_uploaded_image.jpeg',
+            f'{raw_images_location}/preprocessed_uploaded_image.jpeg',
             "23",
-            "F",    # str  in 'Gender' Textbox component
-            "Black",        # str  in 'Race' Textbox component
+            "M",    # str  in 'Gender' Textbox component
+            "Male",        # str  in 'Race' Textbox component
             api_name="/predict"
         )
         similar_images = literal_eval(similar_images)
@@ -149,31 +149,47 @@ async def websocket_endpoint(websocket: WebSocket):
         await websocket.send_json({"status_code": 4, "exp_uuid": exp_uuid, "images": similar_images_encoded})
 
         # run morph on top 5
-        os.makedirs(exp_dir + "/../morphed_images/")
-        morphed_images = await get_morphed_images(exp_dir + "/preprocessed_uploaded_image.jpeg", similar_images, exp_dir + "/../morphed_images/")
+        morphed_images_location = exp_dir + "/morphed_images/"
+        os.makedirs(morphed_images_location)
+        morphed_images = await get_morphed_images(raw_images_location + "/preprocessed_uploaded_image.jpeg", similar_images, morphed_images_location)
 
         # run sam
-        path1 = exp_dir + "/../SAM_outputs"
-        path2 = exp_dir + "/../morphed_images/"
-        age = ["30", "40", "50", "60", "70"]
+        path1 = exp_dir + "/SAM_outputs"
+        path2 = exp_dir + "/morphed_images/"
+        age = ["70"]
         run(path1, path2, age)
-        #sam_processed_images = os.listdir(exp_dir + "/../F0")
-        #sam_processed_encoded = []
-        #for image in sam_processed_images:
-        #    sam_processed_data = open(exp_dir + "/../F0/" + image, "rb").read()
-        #    base64_utf8_str = base64.b64encode(sam_processed_data).decode('utf-8')
-        #    dataurl = f'data:image/jpeg;base64,{base64_utf8_str}'
-        #    sam_processed_encoded.append({"imagename": image, "encodedstring": dataurl})      
+        sam_output_location = exp_dir + "/SAM_outputs/F0/"
+        sam_processed_images = os.listdir(sam_output_location)
+        sam_processed_encoded = []
+        for image in sam_processed_images:
+            sam_processed_data = open(sam_output_location + image, "rb").read()
+            base64_utf8_str = base64.b64encode(sam_processed_data).decode('utf-8')
+            dataurl = f'data:image/jpeg;base64,{base64_utf8_str}'
+            sam_processed_encoded.append({"imagename": image, "encodedstring": dataurl})      
         await websocket.send_json({"status_code": 6, "exp_uuid": exp_uuid, "images": sam_processed_encoded})
 
+        time.sleep(20)
         # run GA
-        for i in ["30", "40", "50", "60", "70"]:
-            path1 = exp_dir + "/preprocessed_uploaded_image.jpeg"
-            path2 = exp_dir + f'/../SAM_outputs/{i}/F0/'
-            await morph_images(exp_dir + "/preprocessed_uploaded_image.jpeg", exp_dir + f'/../SAM_outputs/{i}/F0/')
-        await websocket.send_json({"status_code": 7, "exp_uuid": exp_uuid})
+        #for i in ["30", "40", "50", "60", "70"]:
+        #    path1 = exp_dir + "/preprocessed_uploaded_image.jpeg"
+        #    path2 = exp_dir + f'/../SAM_outputs/{i}/F0/'
+        #    await morph_images(exp_dir + "/preprocessed_uploaded_image.jpeg", exp_dir + f'/../SAM_outputs/{i}/F0/')
+        ga_outputs = exp_dir + "/ga-outputs"
+        ga_outputs_encoded = []
+
+        count = 0
+        for generation in os.listdir(ga_outputs):
+            ga_outputs.append({"generation": generation, "images": []})
+            for image in os.listdir(ga_outputs + "/" + generation):
+                ga_processed_data = open(ga_outputs + "/" + generation + "/" + image, "rb").read()
+                base64_utf8_str = base64.b64encode(ga_processed_data).decode('utf-8')
+                dataurl = f'data:image/jpeg;base64,{base64_utf8_str}'
+                ga_outputs[count]['images'].append({"imagename": image, "encodedstring": dataurl})
+            count += 1
+        await websocket.send_json({"status_code": 7, "exp_uuid": exp_uuid, "images": ga_outputs})
 
         # Completed
+
         await websocket.send_json({"status_code": 8, "exp_uuid": exp_uuid})
         
 
