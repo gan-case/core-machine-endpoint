@@ -25,14 +25,17 @@ MODEL_PATHS = {
         "id": "12CnD7WlYHCb6WCFJOiF8uC8_Q9QoYswa",
         "name": "insightface-symbol.json",
         "path": "FaceImageQuality/insightface/model"
-    },
+    }
+}
+
+"""
+,
     "ip2p": {
         "id": "1C8Ka2qGrmERbNEECjljIJshdxitg6xBt",
         "name": "instruct-pix2pix-00-22000.ckpt",
         "path": "ip2p/checkpoints"
     }
-}
-
+"""
 
 def download_file(file_id, file_name, save_path):
     """Function to generate the urls for given params"""
