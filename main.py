@@ -157,15 +157,15 @@ async def websocket_endpoint(websocket: WebSocket):
         path1 = exp_dir + "/SAM_outputs"
         age = ["70"]
         run(path1, morphed_images_location, age)
-        #sam_output_location = exp_dir + "/SAM_outputs/70/F0/"
-        #sam_processed_images = os.listdir(sam_output_location)
-        #sam_processed_encoded = []
-        #for image in sam_processed_images:
-        #    sam_processed_data = open(sam_output_location + image, "rb").read()
-        #    base64_utf8_str = base64.b64encode(sam_processed_data).decode('utf-8')
-        #    dataurl = f'data:image/jpeg;base64,{base64_utf8_str}'
-        #    sam_processed_encoded.append({"imagename": image, "encodedstring": dataurl})      
-        #await websocket.send_json({"status_code": 6, "exp_uuid": exp_uuid, "images": sam_processed_encoded})
+        sam_output_location = exp_dir + "/SAM_outputs/70/F0/"
+        sam_processed_images = os.listdir(sam_output_location)
+        sam_processed_encoded = []
+        for image in sam_processed_images:
+            sam_processed_data = open(sam_output_location + image, "rb").read()
+            base64_utf8_str = base64.b64encode(sam_processed_data).decode('utf-8')
+            dataurl = f'data:image/jpeg;base64,{base64_utf8_str}'
+            sam_processed_encoded.append({"imagename": image, "encodedstring": dataurl})      
+        await websocket.send_json({"status_code": 6, "exp_uuid": exp_uuid, "images": sam_processed_encoded})
 
         time.sleep(20)
         # run GA
@@ -188,8 +188,14 @@ async def websocket_endpoint(websocket: WebSocket):
         await websocket.send_json({"status_code": 7, "exp_uuid": exp_uuid, "images": ga_outputs_encoded})
 
         # Completed
-
-        await websocket.send_json({"status_code": 8, "exp_uuid": exp_uuid})
+        ip2p_outputs_paths = exp_dir + "/IP2P"
+        ip2p_outputs_encoded = []
+        for image in os.listdir(ip2p_outputs_paths):
+            ip2p_processed_data = open(ip2p_outputs_paths + "/" + image, "rb").read()
+            base64_utf8_str = base64.b64encode(ip2p_processed_data).decode('utf-8')
+            dataurl = f'data:image/jpeg;base64,{base64_utf8_str}'
+            ip2p_outputs_encoded.append({"imagename": image, "encodedstring": dataurl})
+        await websocket.send_json({"status_code": 8, "exp_uuid": exp_uuid, "images": ip2p_outputs_encoded})
         
 
 if __name__ == '__main__':
