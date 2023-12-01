@@ -14,7 +14,6 @@ import httpx
 import gc
 from subprocess import Popen
 import uvicorn
-import pandas as pd
 import shutil
 
 from gradio_client import Client
