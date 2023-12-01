@@ -182,9 +182,11 @@ async def websocket_endpoint(websocket: WebSocket):
         #    await morph_images(exp_dir + "/preprocessed_uploaded_image.jpeg", exp_dir + f'/../SAM_outputs/{i}/F0/')
         ga_outputs = exp_dir + "/ga-outputs"
         ga_outputs_encoded = []
+        ga_output_dirs = os.listdir(ga_outputs)
+        ga_output_dirs.sort()
 
         count = 0
-        for generation in os.listdir(ga_outputs):
+        for generation in ga_output_dirs:
             ga_outputs_encoded.append({"generation": generation, "images": []})
             for image in os.listdir(ga_outputs + "/" + generation):
                 ga_processed_data = open(ga_outputs + "/" + generation + "/" + image, "rb").read()
@@ -204,7 +206,7 @@ async def websocket_endpoint(websocket: WebSocket):
             base64_utf8_str = base64.b64encode(ip2p_processed_data).decode('utf-8')
             dataurl = f'data:image/jpeg;base64,{base64_utf8_str}'
             ip2p_outputs_encoded.append({"imagename": image, "encodedstring": dataurl})
-        await websocket.send_json({"status_code": 8, "exp_uuid": exp_uuid, "images": ip2p_outputs_encoded[0]})
+        await websocket.send_json({"status_code": 8, "exp_uuid": exp_uuid, "images": ip2p_outputs_encoded})
         
 
 if __name__ == '__main__':
